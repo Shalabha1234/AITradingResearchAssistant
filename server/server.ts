@@ -54,7 +54,6 @@ app.post("/api/analyze", async (req, res) => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3.6-flash",
-
       contents: `
 Analyze this trading research question:
 
@@ -79,7 +78,6 @@ For missing critical information, include it in missingInformation.
 
 Return only valid JSON.
 `,
-
       config: {
         responseMimeType: "application/json",
       },
@@ -115,7 +113,6 @@ app.post("/api/finalize", async (req, res) => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3.6-flash",
-
       contents: `
 You are a trading research assistant.
 
@@ -150,7 +147,6 @@ Return only valid JSON with these fields:
 
 The final experiment should be specific enough that another person could understand exactly what is being tested.
 `,
-
       config: {
         responseMimeType: "application/json",
       },
@@ -225,7 +221,6 @@ app.post("/api/learn", async (req, res) => {
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3.6-flash",
-
       contents: `
 You are a trading research assistant.
 
@@ -252,7 +247,6 @@ Return only valid JSON with:
 - comparison
 - limitations
 `,
-
       config: {
         responseMimeType: "application/json",
       },
@@ -287,6 +281,8 @@ Return only valid JSON with:
 });
 
 // Start server
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
+const PORT = Number(process.env.PORT) || 5000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
 });
