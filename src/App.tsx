@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 type Analysis = {
   instrument: string;
   timeframe: string;
@@ -63,12 +66,10 @@ function App() {
 
   const scrollToSection = (id: string) => {
     setTimeout(() => {
-      document
-        .getElementById(id)
-        ?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
+      document.getElementById(id)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }, 100);
   };
 
@@ -90,7 +91,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/analyze",
+        `${API_BASE_URL}/api/analyze`,
         {
           method: "POST",
           headers: {
@@ -181,7 +182,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/finalize",
+        `${API_BASE_URL}/api/finalize`,
         {
           method: "POST",
           headers: {
@@ -199,7 +200,8 @@ function App() {
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Could not define the experiment."
+          data.message ||
+            "Could not define the experiment."
         );
       }
 
@@ -243,7 +245,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/test",
+        `${API_BASE_URL}/api/test`,
         {
           method: "POST",
           headers: {
@@ -259,7 +261,8 @@ function App() {
 
       if (!response.ok) {
         throw new Error(
-          data.message || "The experiment could not be tested."
+          data.message ||
+            "The experiment could not be tested."
         );
       }
 
@@ -295,7 +298,7 @@ function App() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/learn",
+        `${API_BASE_URL}/api/learn`,
         {
           method: "POST",
           headers: {
